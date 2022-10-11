@@ -26,7 +26,9 @@ namespace Unit14Form
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            portSelector.Items.Add("Ben");
+            UpdateCOMList();
+            portSelector.SelectedIndex = 0;
         }
 
         private void btnStartSerial_Click(object sender, EventArgs e)
@@ -65,12 +67,10 @@ namespace Unit14Form
         private void UpdateCOMList()
         {
             string[] ports = SerialPort.GetPortNames();
-            portSelector.Items.Add("Ben");
             for (int i = 0; i < ports.Length; i++)
             {
                 portSelector.Items.Add(ports[i]);
             }
-            portSelector.SelectedIndex = 0;
         }
     }
 }
