@@ -29,11 +29,13 @@ namespace Unit14Form
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnStartSerial = new System.Windows.Forms.Button();
             this.cbPortSelector = new System.Windows.Forms.ComboBox();
             this.tbSerialInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pbRadar = new System.Windows.Forms.PictureBox();
+            this.serialPortTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbRadar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,6 +85,10 @@ namespace Unit14Form
             this.pbRadar.Paint += new System.Windows.Forms.PaintEventHandler(this.pbRadar_Paint);
             this.pbRadar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbRadar_MouseClick);
             // 
+            // serialPortTimer
+            // 
+            this.serialPortTimer.Tick += new System.EventHandler(this.serialPortTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -109,6 +115,7 @@ namespace Unit14Form
         private System.Windows.Forms.TextBox tbSerialInput;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbRadar;
+        private System.Windows.Forms.Timer serialPortTimer;
     }
 }
 

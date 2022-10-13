@@ -16,6 +16,7 @@ namespace Unit14Form
     {
         ComboBox portSelector;
         Graphics canvas;
+        SerialPort sp;
 
         public Form1()
         {
@@ -26,14 +27,20 @@ namespace Unit14Form
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            portSelector.Items.Add("Ben");
             UpdateCOMList();
-            portSelector.SelectedIndex = 0;
+            if(portSelector.Items.Count > 0)
+            {
+                portSelector.SelectedIndex = 0;
+            }
+            
         }
 
         private void btnStartSerial_Click(object sender, EventArgs e)
         {
-
+            sp = new SerialPort(portSelector.SelectedItem.ToString(), 9600, Parity.None, 8, StopBits.One);
+            sp.Open();
+            sp.ReadTimeout = 1000;
+            serialPortTimer.Enabled = true;
         }
 
         private void pbRadar_Paint(object sender, PaintEventArgs e)
@@ -70,6 +77,21 @@ namespace Unit14Form
             for (int i = 0; i < ports.Length; i++)
             {
                 portSelector.Items.Add(ports[i]);
+            }
+        }
+
+        private void serialPortTimer_Tick(object sender, EventArgs e)
+        {
+            if (sp.IsOpen)
+            {
+                string output = sp.ReadExisting();
+
+                if (int.TryParse(output, out int distance))
+                {
+                    UpdateRadar(pbRadar.Width / 2, pbRadar.Height / 2 - distance);
+                }
+
+                tbSerialInput.Text = output;
             }
         }
     }
